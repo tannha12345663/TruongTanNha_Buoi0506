@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/mnAdd"
+        android:icon="@drawable/ic_baseline_add_circle_24"
+        app:showAsAction="always"
+        android:title="Thêm mới" />
+        <item
+            android:id="@+id/menuSort"
+            android:title="Bộ Lọc"
+            android:icon="@drawable/ic_baseline_filter_list_24"
+            app:showAsAction="always"
+            >
+            <menu>
+                <item
+                    android:id="@+id/theoABC"
+                    android:title="Sắp xếp theo thứ tự ABC" />
+                <item
+                    android:id="@+id/theoID"
+                    android:title="Sắp xếp theo id" />
+
+            </menu>
+
+        </item>
+
+
+</menu>
