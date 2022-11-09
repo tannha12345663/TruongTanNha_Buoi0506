@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.ims.RegistrationManager;
 import android.view.Menu;
@@ -12,7 +13,7 @@ import android.widget.EditText;
 
 public class add_edit_note extends AppCompatActivity {
     EditText edtTitle, edtDetail;
-
+    int flag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,13 @@ public class add_edit_note extends AppCompatActivity {
     private void innitUI() {
         edtTitle=findViewById(R.id.EdtTitle);
         edtDetail=findViewById(R.id.edtDetail);
+        Intent intent = getIntent();
+        flag = intent.getIntExtra("flag", 0);
+        if(flag == 1){
+            getSupportActionBar().setTitle("Thêm mới ghi chú");
+        }else {
+            getSupportActionBar().setTitle("Chỉnh sửa ghi chú");
+        }
     }
     private void innitListener(){
 

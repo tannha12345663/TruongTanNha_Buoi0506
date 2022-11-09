@@ -1,21 +1,22 @@
 package com.example.truongtannha_buoi0506;
 
 public class NoteApp {
-    String ID,Title, Detaile, Date;
+    Integer Id;
+    String Title, Detaile, Date;
 
-    public NoteApp(String ID, String title, String detaile, String date) {
-        this.ID = ID;
+    public NoteApp(Integer id, String title, String detaile, String date) {
+        Id = id;
         Title = title;
         Detaile = detaile;
         Date = date;
     }
 
-    public String getID() {
-        return ID;
+    public Integer getId() {
+        return Id;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(Integer id) {
+        Id = id;
     }
 
     public String getTitle() {

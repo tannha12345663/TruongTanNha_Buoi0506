@@ -25,7 +25,7 @@
         android:text="Ngày tạo : 11/02/2022"></TextView>
 
     <TextView
-        android:id="@+id/txId"
+        android:id="@+id/txDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txDate"
