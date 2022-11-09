@@ -1,6 +1,8 @@
 package com.example.truongtannha_buoi0506;
 
-public class NoteApp {
+import java.io.Serializable;
+
+public class NoteApp implements Serializable {
     Integer Id;
     String Title, Detaile, Date;
 

@@ -16,9 +16,9 @@ public class NoteAppAdapter extends RecyclerView.Adapter<NoteAppAdapter.NoteAppV
     ArrayList<NoteApp>noteApps;
     Listener listener;
 
-    public NoteAppAdapter(ArrayList<NoteApp> noteApps) {
-
+    public NoteAppAdapter(ArrayList<NoteApp> noteApps, Listener listener) {
         this.noteApps = noteApps;
+        this.listener = listener;
     }
 
     @NonNull
@@ -62,5 +62,21 @@ public class NoteAppAdapter extends RecyclerView.Adapter<NoteAppAdapter.NoteAppV
     }
     interface Listener{
         void onItemListener(int pos,NoteApp noteApp);
+    }
+    public void addNote(NoteApp noteApp){
+        noteApps.add(noteApp);
+        notifyDataSetChanged();
+    }
+    public void editNote(NoteApp noteApp,int pos){
+        noteApps.set(pos, noteApp);
+        notifyDataSetChanged();
+    }
+    public void deleteNote(int pos){
+        noteApps.remove(pos);
+        notifyDataSetChanged();
+    }
+    public void deleteNote(NoteApp noteApp){
+        noteApps.remove(noteApp);
+        notifyDataSetChanged();
     }
 }

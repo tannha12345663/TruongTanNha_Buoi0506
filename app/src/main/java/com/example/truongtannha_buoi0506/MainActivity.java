@@ -23,7 +23,24 @@ public class MainActivity extends AppCompatActivity implements NoteAppAdapter.Li
     DbHelper dbHelper;
     RecyclerView recyclerView ;
     NoteAppAdapter noteAppAdapter;
+    ActivityResultLauncher<Intent> mLauncher =registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode()==RESULT_OK) {
+                        if (result.getData().getIntExtra("flag", 0) == 1) {
+                            noteApps = new ArrayList<>();
+                            RefreshNote();
 
+                        } else if(result.getData().getIntExtra("flag", 0) == 2){
+                            noteApps = new ArrayList<>();
+                            RefreshNote();
+                        }
+                    }
+                }
+            }
+    );
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,16 +53,21 @@ public class MainActivity extends AppCompatActivity implements NoteAppAdapter.Li
     private void innitUI() {
         ArrayList<NoteApp> data = dbHelper.getNotes();
         noteApps.addAll(data);
+        noteApps.add(new NoteApp(01,"Ghi chú 01","Ở đây xin chào","11/09/2022"));
         recyclerView=findViewById(R.id.rxNote);
-        noteApps = new ArrayList<>();
-        noteAppAdapter = new NoteAppAdapter(noteApps);
+        noteAppAdapter = new NoteAppAdapter(noteApps,MainActivity.this);
         recyclerView.setAdapter(noteAppAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,false));
         recyclerView.addItemDecoration(new DividerItemDecoration(MainActivity.this,LinearLayoutManager.VERTICAL));
 
 
     }
-
+    public void RefreshNote(){
+        ArrayList<NoteApp> data = dbHelper.getNotes();
+        noteApps.addAll(data);
+        noteAppAdapter = new NoteAppAdapter(noteApps,MainActivity.this);
+        recyclerView.setAdapter(noteAppAdapter);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.create_item,menu); // Khai báo hiển thị menu
@@ -65,15 +87,17 @@ public class MainActivity extends AppCompatActivity implements NoteAppAdapter.Li
             Intent intent = new Intent(MainActivity.this,add_edit_note.class);
             intent.putExtra("flag",1);
             onResume();
-            startActivity(intent);
+            mLauncher.launch(intent);
         }
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public void onItemListener(int pos, NoteApp noteApp) {
         Intent intent = new Intent(MainActivity.this,add_edit_note.class);
+        intent.putExtra("noteEdit",noteApp);
         intent.putExtra("flag",0);
-        startActivity(intent);
+        mLauncher.launch(intent);
     }
 }

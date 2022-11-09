@@ -36,7 +36,7 @@ public class DbHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("title",note.Title);
         contentValues.put("content",note.Detaile);
-        contentValues.put("createDate",note.Detaile);
+        contentValues.put("createDate",note.Date);
 
         db.insert("NoteTbl",null,contentValues);
         closeDB(db);
@@ -46,7 +46,7 @@ public class DbHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("title",note.Title);
         contentValues.put("content",note.Detaile);
-        contentValues.put("createDate",note.Detaile);
+        contentValues.put("createDate",note.Date);
 
         db.update("NoteTbl",contentValues,"id = "+note.Id,null);
         closeDB(db);
@@ -76,6 +76,7 @@ public class DbHelper {
     }
 
     public NoteApp getNoteById(int id){
+
         return null;
     }
 
