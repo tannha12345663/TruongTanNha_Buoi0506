@@ -2,7 +2,7 @@ package com.example.truongtannha_buoi0506;
 
 import java.io.Serializable;
 
-public class NoteApp implements Serializable {
+public class NoteApp implements Serializable,Comparable<NoteApp> {
     Integer Id;
     String Title, Detaile, Date;
 
@@ -43,5 +43,13 @@ public class NoteApp implements Serializable {
 
     public void setDate(String date) {
         Date = date;
+    }
+
+    @Override
+    public int compareTo(NoteApp o) {
+        if (Title.compareToIgnoreCase(o.Title)==0){
+            return Detaile.compareToIgnoreCase(o.Detaile);
+        }
+        return Title.compareToIgnoreCase(o.Title);
     }
 }

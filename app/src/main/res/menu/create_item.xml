@@ -17,8 +17,8 @@
                     android:id="@+id/theoABC"
                     android:title="Sắp xếp theo thứ tự ABC" />
                 <item
-                    android:id="@+id/theoID"
-                    android:title="Sắp xếp theo id" />
+                    android:id="@+id/theoCBA"
+                    android:title="Sắp xếp theo thứ tự CBA" />
 
             </menu>
 

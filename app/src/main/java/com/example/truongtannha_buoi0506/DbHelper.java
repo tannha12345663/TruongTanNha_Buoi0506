@@ -85,7 +85,27 @@ public class DbHelper {
     }
 
     public ArrayList<NoteApp> sortNote(int type){
-        return null;
+        ArrayList<NoteApp> tmp = new ArrayList<>();
+        SQLiteDatabase db = openDBOption2();
+        String sql="";
+        if (type ==0){
+             sql = "SELECT * FROM NoteTbl ORDER BY title ASC  ";
+        }
+        else {
+             sql = "SELECT * FROM NoteTbl ORDER BY title DESC ";
+        }
+
+        Cursor cursor = db.rawQuery(sql,null);
+        while (cursor.moveToNext()){
+            int id = cursor.getInt(0);
+            String title = cursor.getString(1);
+            String content = cursor.getString(2);
+            String createDate = cursor.getString(3);
+            NoteApp noteApp = new NoteApp(id,title,content,createDate);
+            tmp.add(noteApp);
+        }
+        closeDB(db);
+        return tmp;
     }
 
 

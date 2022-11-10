@@ -1,21 +1,20 @@
 package com.example.truongtannha_buoi0506;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.ims.RegistrationManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
 public class add_edit_note extends AppCompatActivity {
@@ -54,6 +53,10 @@ public class add_edit_note extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.save_del,menu); // Khai báo hiển thị menu
+        if (flag==1){
+            MenuItem mnDel = menu.findItem(R.id.mnDel);
+            mnDel.setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -95,7 +98,23 @@ public class add_edit_note extends AppCompatActivity {
 
         }
         else if (id==R.id.mnDel){
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(add_edit_note.this);
+            builder.setTitle("Ghi chú ");
+            builder.setMessage("Bạn có muốn xóa ".concat(edtTitle.getText().toString().trim()).concat("?"));
+            builder.setNegativeButton("No",(dialog, i) ->{
+                dialog.cancel();
+            } );
+            builder.setPositiveButton("Yes",(dialog, i) ->{
+                DbHelper dbHelper = new DbHelper(add_edit_note.this);
+                dbHelper.deleteNote(noteAppEdit.getId());
+                Intent intent = new Intent();
+                intent.putExtra("flag",3);
+                setResult(RESULT_OK,intent);
+                finish();
+                dialog.dismiss();
+            } );
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
         return super.onOptionsItemSelected(item);
     }
